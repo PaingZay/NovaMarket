@@ -39,18 +39,21 @@ public class ProductDetailsController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping("wishlists/{productId}")
+    @PostMapping("/wishlists/{productId}")
     public ResponseEntity<Wishlist> addToWishlist(@PathVariable(value = "productId") Long productId, @RequestBody Wishlist wishlist) {
         try {
 
         //CustomerId from Session!!!!!!!!!
         Long customerId = 1L;
 
-        Customer savedCustomer = userService.registerUser(userService.findUserById(customerId).get());
+        //Customer savedCustomer = userService.registerUser(userService.findUserById(customerId).get());
 
-        //Wishlist wishlist = new Wishlist();
-        wishlist.setCustomer(savedCustomer);
-        wishlist.setCreatedDate(LocalDate.now());
+        //shanmon updated code
+        Optional<Customer> savedCustomer = userService.findUserById(customerId);
+
+        Wishlist wishlists = new Wishlist();
+        wishlists.setCustomer(wishlist.getCustomer());
+        wishlists.setCreatedDate(LocalDate.now());
 
         Wishlist savedWishlist = wishlistService.addToWishlist(wishlist);
 
