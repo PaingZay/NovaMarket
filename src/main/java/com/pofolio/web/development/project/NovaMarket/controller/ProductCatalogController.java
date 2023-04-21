@@ -1,7 +1,9 @@
 package com.pofolio.web.development.project.NovaMarket.controller;
 
 import com.pofolio.web.development.project.NovaMarket.entity.Product;
+import com.pofolio.web.development.project.NovaMarket.entity.Wishlist;
 import com.pofolio.web.development.project.NovaMarket.service.ProductService;
+import com.pofolio.web.development.project.NovaMarket.service.WishlistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -20,13 +22,15 @@ public class ProductCatalogController {
     @Autowired
     ProductService productService;
 
+    @Autowired
+    WishlistService wishlistService;
+
     @GetMapping("/products")
     public ResponseEntity<Page<Product>> getAllProducts(@RequestParam int pageSize, @RequestParam int pageNumber) {
 //        logger.info("Getting all members");
 
         try {
             Page<Product> products = productService.getProductList(pageSize,pageNumber);
-
             if (products.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }

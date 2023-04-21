@@ -63,6 +63,9 @@ public class Customer {
     @OneToMany(targetEntity = Wishlist.class, mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Wishlist> wishlists;
 
+    @OneToMany(targetEntity = Cart.class, mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<Cart> cartList;
+
     @Override
     public String toString() {
         return "Customer{" +
