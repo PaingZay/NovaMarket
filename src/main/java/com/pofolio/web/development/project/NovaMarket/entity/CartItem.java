@@ -4,15 +4,12 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="cart_item")
+@Table(name="cart_items")
 public class CartItem {
 
     @Id
@@ -28,13 +25,12 @@ public class CartItem {
     @JoinColumn(name="product_id")
     private Product product;
 
-    @Column(name="payment_date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate paymentDate;
+    @Column(name = "quantity")
+    private int quantity;
 
-    @Column(name = "payment_method")
-    private String paymentMethod;
+    @Column(name = "price_per_unit")
+    private double pricePerUnit;
 
-    @Column(name = "amount")
-    private double amount;
+    @Column(name = "total_price")
+    private double totalPrice;
 }

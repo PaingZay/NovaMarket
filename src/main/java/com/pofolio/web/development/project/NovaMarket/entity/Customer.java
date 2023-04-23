@@ -1,5 +1,6 @@
 package com.pofolio.web.development.project.NovaMarket.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
@@ -61,9 +62,11 @@ public class Customer {
     private LocalDate dateOfBirth;
 
     @OneToMany(targetEntity = Wishlist.class, mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JsonIgnore
     private List<Wishlist> wishlists;
 
     @OneToMany(targetEntity = Cart.class, mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JsonIgnore
     private List<Cart> cartList;
 
     @Override

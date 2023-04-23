@@ -1,11 +1,13 @@
 package com.pofolio.web.development.project.NovaMarket;
 
 import com.pofolio.web.development.project.NovaMarket.entity.*;
+import com.pofolio.web.development.project.NovaMarket.repository.CartItemRepository;
 import com.pofolio.web.development.project.NovaMarket.repository.WishlistRepository;
 import com.pofolio.web.development.project.NovaMarket.service.*;
 import jakarta.annotation.PostConstruct;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -63,7 +65,7 @@ public class NovaMarketApplication {
 	}
 
 	@Bean
-	CommandLineRunner loadData(OrderService orderService, ProductService productService, OrderItemService orderItemService, UserService userService, WishlistService wishlistService) {
+	CommandLineRunner loadData(OrderService orderService, ProductService productService, OrderItemService orderItemService, UserService userService, WishlistService wishlistService, CartItemService cartItemService, CartItemRepository cartItemRepository) {
 		return (args) -> {
 
 //			Order order1 = new Order();
@@ -162,7 +164,9 @@ public class NovaMarketApplication {
 //			Product savedProduct = productService.saveProduct(new Product());
 //			Wishlist savedWishlist = wishlistService.addToWishlist(new Wishlist());
 
+//			System.out.println( "Hello" + cartItemService.getCartItemById(2L));
 
+//			cartItemRepository.deleteById(1L);
 		};
 	}
 

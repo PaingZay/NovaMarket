@@ -1,5 +1,6 @@
 package com.pofolio.web.development.project.NovaMarket.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -55,6 +56,10 @@ public class Product {
 //            inverseJoinColumns = @JoinColumn(name = "order_id")
 //    )
 //    private List<Order> orderList;
+
+    @OneToMany(targetEntity = CartItem.class, mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JsonIgnore//Need to check error
+    private List<CartItem> cartItems;
 
     public Product(String productName, String description, Long categoryId, Double price)
     {

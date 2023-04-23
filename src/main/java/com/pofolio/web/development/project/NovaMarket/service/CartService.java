@@ -13,4 +13,6 @@ public interface CartService {
     List<Cart> getCartList();
 
     Boolean deleteCartById(Long id);
+
+    Optional<Cart> getSpecificCart(Long id);
 }

@@ -16,7 +16,7 @@ public class CartServiceImpl implements CartService{
 
     @Override
     public Cart saveCart(Cart cart) {
-        return cartRepository.save(cart);
+        return cartRepository.saveAndFlush(cart);
     }
 
     @Override
@@ -37,5 +37,10 @@ public class CartServiceImpl implements CartService{
         } catch (Exception e) {
             return false;
         }
+    }
+
+    @Override
+    public Optional<Cart> getSpecificCart(Long id) {
+        return cartRepository.findSpecificCart(id);
     }
 }
