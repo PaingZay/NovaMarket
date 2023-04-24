@@ -5,6 +5,7 @@ import com.pofolio.web.development.project.NovaMarket.repository.CartItemReposit
 import com.pofolio.web.development.project.NovaMarket.repository.WishlistRepository;
 import com.pofolio.web.development.project.NovaMarket.service.*;
 import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -166,7 +167,22 @@ public class NovaMarketApplication {
 
 //			System.out.println( "Hello" + cartItemService.getCartItemById(2L));
 
-//			cartItemRepository.deleteById(1L);
+			/////////
+
+//			List<CartItem> cartItems = cartItemRepository.findCartItemsByCartId(4L);
+//        	if (cartItems.size() > 0){
+//
+//				//Check CartItem Child Table
+//				System.out.println(cartItems.get(0).getProduct());
+//
+//
+//				//Check Cart Parent Table
+//				Cart savedCart = cartItems.get(0).getCart();
+//				if (savedCart != null)
+//					System.out.println("Yare " + savedCart);
+//				else
+//					System.out.println("Muda");
+//			}
 		};
 	}
 

@@ -109,4 +109,19 @@ public class CartControlller {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PutMapping("/cart")
+    public ResponseEntity<Cart> updateCart(@RequestBody Cart cart) {
+        logger.info("Update new member");
+
+        try {
+            Cart savedCart = cartService.updateCart(cart, cart.getId());
+
+            System.out.println( "Updated Cart" + savedCart);
+
+            return new ResponseEntity<>(savedCart, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

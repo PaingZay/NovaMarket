@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
 
@@ -58,14 +60,15 @@ public class Product {
 //    private List<Order> orderList;
 
     @OneToMany(targetEntity = CartItem.class, mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @Fetch(FetchMode.SUBSELECT)
     @JsonIgnore//Need to check error
     private List<CartItem> cartItems;
 
-    public Product(String productName, String description, Long categoryId, Double price)
-    {
-        this.productName = productName;
-        this.description = description;
-        this.categoryId = categoryId;
-        this.price = price;
-    }
+//    public Product(String productName, String description, Long categoryId, Double price)
+//    {
+//        this.productName = productName;
+//        this.description = description;
+//        this.categoryId = categoryId;
+//        this.price = price;
+//    }
 }

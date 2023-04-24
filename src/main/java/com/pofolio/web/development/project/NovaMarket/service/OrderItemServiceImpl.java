@@ -1,11 +1,15 @@
 package com.pofolio.web.development.project.NovaMarket.service;
 
+import com.pofolio.web.development.project.NovaMarket.entity.CartItem;
 import com.pofolio.web.development.project.NovaMarket.entity.Order;
 import com.pofolio.web.development.project.NovaMarket.entity.OrderItem;
 import com.pofolio.web.development.project.NovaMarket.repository.OrderItemRepository;
 import jakarta.annotation.Resource;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,5 +46,15 @@ public class OrderItemServiceImpl implements OrderItemService{
         } catch (Exception e) {
             return false;
         }
+    }
+
+    @Override
+    public Page<OrderItem> getAllOrderItems(int pageSize, int pageNumber, Long orderId) {
+
+//        System.out.println("Cart Id"+cartId+"PageSize"+pageSize+"PageNumber"+pageNumber);
+
+        Pageable page = PageRequest.of(pageNumber,pageSize);
+
+        return orderItemRepository.getAllOrderItemsById(page, orderId);
     }
 }

@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -34,6 +36,14 @@ public class Cart {
     private String status;
 
     @OneToMany(targetEntity = CartItem.class, mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @Fetch(FetchMode.SUBSELECT)
     @JsonIgnore//Need to check error
     private List<CartItem> cartItems;
+
+//    public Cart(Long id, Customer customer, LocalDate createdDate, String status) {
+//        this.id = id;
+//        this.customer = customer;
+//        this.createdDate = createdDate;
+//        this.status = status;
+//    }
 }

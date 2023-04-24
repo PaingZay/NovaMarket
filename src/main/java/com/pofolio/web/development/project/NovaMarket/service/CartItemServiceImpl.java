@@ -34,14 +34,23 @@ public class CartItemServiceImpl implements CartItemService{
     }
 
     @Override
+    public List<CartItem> getCartItemListByCartId(Long cartId) {
+        return cartItemRepository.findCartItemsByCartId(cartId);
+    }
+
+    @Override
     public CartItem addCartItem(CartItem cartItem) {
+
+        var total = cartItem.getPricePerUnit() * cartItem.getQuantity();
+        cartItem.setTotalPrice(total);
+
         return cartItemRepository.save(cartItem);
     }
 
     @Override
     public Boolean deleteCartItemById(Long cartItemId) {
         try {
-//            cartItemRepository.removeCartItemById(cartItemId);
+//          cartItemRepository.removeCartItemById(cartItemId);
             cartItemRepository.deleteById(cartItemId);
             System.out.println("TRUE");
             return true;
@@ -50,6 +59,7 @@ public class CartItemServiceImpl implements CartItemService{
             return false;
         }
     }
+
 
     //This is retrieve cart item from repository then delete. The same with above one
 //    @Override

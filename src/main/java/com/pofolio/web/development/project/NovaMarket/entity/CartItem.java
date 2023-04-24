@@ -1,5 +1,7 @@
 package com.pofolio.web.development.project.NovaMarket.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,4 +35,16 @@ public class CartItem {
 
     @Column(name = "total_price")
     private double totalPrice;
+
+    @Override
+    public String toString() {
+        return "CartItem{" +
+                "id=" + id +
+//                ", cart=" + cart +
+//                ", product=" + product +
+                ", quantity=" + quantity +
+                ", pricePerUnit=" + pricePerUnit +
+                ", totalPrice=" + totalPrice +
+                '}';
+    }
 }

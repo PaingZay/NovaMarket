@@ -15,4 +15,7 @@ public interface CartService {
     Boolean deleteCartById(Long id);
 
     Optional<Cart> getSpecificCart(Long id);
+
+    Cart updateCart(Cart cart, Long cartId);
+
 }

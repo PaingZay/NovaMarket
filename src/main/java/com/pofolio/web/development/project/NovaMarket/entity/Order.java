@@ -37,8 +37,7 @@ public class Order {
 
     @Column(name = "status")
     private String status;
-
-//Dyrrl
+    
     @OneToMany(targetEntity = OrderItem.class, mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @Fetch(FetchMode.SUBSELECT)
     @JsonIgnore
