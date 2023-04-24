@@ -36,6 +36,15 @@ public class CartItem {
     @Column(name = "total_price")
     private double totalPrice;
 
+    public CartItem(Long id, Cart cart, Product product, int quantity, double pricePerUnit, double totalPrice) {
+        this.id = id;
+        this.cart = cart;
+        this.product = product;
+        this.quantity = quantity;
+        this.pricePerUnit = pricePerUnit;
+        this.totalPrice = totalPrice;
+    }
+
     @Override
     public String toString() {
         return "CartItem{" +

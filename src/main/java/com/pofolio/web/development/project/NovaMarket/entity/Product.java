@@ -64,11 +64,11 @@ public class Product {
     @JsonIgnore//Need to check error
     private List<CartItem> cartItems;
 
-//    public Product(String productName, String description, Long categoryId, Double price)
-//    {
-//        this.productName = productName;
-//        this.description = description;
-//        this.categoryId = categoryId;
-//        this.price = price;
-//    }
+    public Product(String productName, String description, Long categoryId, Double price)
+    {
+        this.productName = productName;
+        this.description = description;
+        this.categoryId = categoryId;
+        this.price = price;
+    }
 }

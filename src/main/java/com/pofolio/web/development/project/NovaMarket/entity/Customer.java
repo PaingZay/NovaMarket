@@ -88,4 +88,18 @@ public class Customer {
                 ", dateOfBirth=" + dateOfBirth +
                 '}';
     }
+
+    public Customer(Long id, String firstName, String lastName, String email, String password, String address, String city, String state, String zipCode, String phoneNumber, LocalDate dateOfBirth) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+        this.phoneNumber = phoneNumber;
+        this.dateOfBirth = dateOfBirth;
+    }
 }

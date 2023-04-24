@@ -183,6 +183,14 @@ public class NovaMarketApplication {
 //				else
 //					System.out.println("Muda");
 //			}
+
+			Customer registeredUser = userService.registerUser(new Customer(1L,"Kyaw","Kyaw","kyawgyi@gmail.com","123456","East Dagon", "Yangon", "Yangon", "123131", "09955271558", LocalDate.of(2022,2,12)));
+
+			Cart cart1 = new Cart(1L,registeredUser,LocalDate.of(2022,2,12),"Completed");
+
+			Product product1 = new Product("productName", "descript", null, 100.0);
+
+			CartItem cartItem = new CartItem(1L, cart1, product1, 2, 100.0, 100.0);
 		};
 	}
 
