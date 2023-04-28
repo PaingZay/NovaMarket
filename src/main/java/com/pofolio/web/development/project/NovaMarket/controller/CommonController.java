@@ -48,5 +48,4 @@ public class CommonController {
 
         return "redirect:/staff/course/history";//NEED TO MODIFY DIRECTION
     }
-
-    }
+}

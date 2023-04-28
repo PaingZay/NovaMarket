@@ -41,4 +41,12 @@ public class OrderServiceImpl implements OrderService{
             return false;
         }
     }
+
+    @Override
+    public Optional<Order> getSpecificOrder(Long customerId) {
+        System.out.println( "In the IMPL" + customerId);
+        return orderRepository.findSpecificOrder(customerId);
+    }
+
+
 }

@@ -13,6 +13,8 @@ public interface CartItemService {
 
     List<CartItem> getCartItemListByCartId(Long cartId);
 
+    List<CartItem> getCartItemsByCartItemId(Long cartItemId);
+
     CartItem addCartItem(CartItem cartItem);
 
     Boolean deleteCartItemById(Long cartItemId);

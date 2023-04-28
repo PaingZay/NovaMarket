@@ -5,13 +5,17 @@ import com.pofolio.web.development.project.NovaMarket.entity.Cart;
 import com.pofolio.web.development.project.NovaMarket.entity.CartItem;
 import com.pofolio.web.development.project.NovaMarket.service.CartItemService;
 import com.pofolio.web.development.project.NovaMarket.service.CartService;
+import com.pofolio.web.development.project.NovaMarket.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/api")
@@ -24,20 +28,45 @@ public class CartControlller {
     @Autowired
     CartItemService cartItemService;
 
+    @Autowired
+    UserService userService;
+
     @GetMapping("/cart/{customerId}")
     public ResponseEntity<Cart> getCartById(@PathVariable("customerId") Long customerId){
         logger.info("Get cart, id" + customerId);
+        try {
+            Cart savedCart;
 
-        Cart savedCart = cartService.getSpecificCart(customerId).get();
+            savedCart = cartService.getSpecificCart(customerId).get();
 
-        System.out.println("IN CONTROLLER" + savedCart);
+            System.out.println("IN CONTROLLER" + savedCart);
 
-        if(savedCart != null) {
-            return new ResponseEntity<>(savedCart, HttpStatus.CREATED);
+            if (savedCart != null) {
+                return new ResponseEntity<>(savedCart, HttpStatus.CREATED);
+            } else {
+                return new ResponseEntity<>(savedCart, HttpStatus.CONFLICT);
+
+            }
         }
-        else {
-            Cart unsavedCart = new Cart();
-            return new ResponseEntity<>(unsavedCart,HttpStatus.CONFLICT);
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    //Get the specific cart of a customer
+    //If there is no existing cart then
+    //Redirect to following post method
+
+    @PostMapping("/cart")
+    public ResponseEntity<Cart> saveMember(@RequestBody Cart cart) {
+        logger.info("Creating new member");
+        try {
+            Cart createdCart = cartService.saveCart(cart);
+
+            return new ResponseEntity<>(createdCart, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -109,6 +138,8 @@ public class CartControlller {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    //When click checkout call this method
 
     @PutMapping("/cart")
     public ResponseEntity<Cart> updateCart(@RequestBody Cart cart) {

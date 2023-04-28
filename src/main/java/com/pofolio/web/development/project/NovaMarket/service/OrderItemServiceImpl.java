@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +21,9 @@ public class OrderItemServiceImpl implements OrderItemService{
 
     @Resource
     OrderItemRepository orderItemRepository;
+
+    @Resource
+    CartItemService cartItemService;
 
 
     @Transactional
@@ -56,5 +60,24 @@ public class OrderItemServiceImpl implements OrderItemService{
         Pageable page = PageRequest.of(pageNumber,pageSize);
 
         return orderItemRepository.getAllOrderItemsById(page, orderId);
+    }
+
+    @Override
+    public List<OrderItem> copyRows(OrderItem orderItem, Long cartItemId) {
+
+        //Find all cart items by using primary key first
+        List<CartItem> cartItems = cartItemService.getCartItemsByCartItemId(cartItemId);
+        List<OrderItem> savedOrderItems = new ArrayList<>();
+        
+        for(CartItem cartItem: cartItems) {
+            orderItem.setProduct(cartItem.getProduct());
+            orderItem.setQuantity(cartItem.getQuantity());
+            orderItem.setPricePerUnit(cartItem.getPricePerUnit());
+            orderItem.setTotalPrice(cartItem.getTotalPrice());
+            OrderItem savedOrderItem = orderItemRepository.save(orderItem);
+            savedOrderItems.add(savedOrderItem);
+        }
+
+        return savedOrderItems;
     }
 }

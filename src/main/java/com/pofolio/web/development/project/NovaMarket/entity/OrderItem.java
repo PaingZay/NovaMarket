@@ -30,14 +30,23 @@ public class OrderItem {
     @JoinColumn(name="product_id")
     private Product product;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(name="order_date")
-    private LocalDate orderDate;
+    @Column(name="quantity")
+    private int quantity;
 
-    @Column(name="total_amount")
-    private double totalAmount;
+    @Column(name="price_per_unit")
+    private double pricePerUnit;
 
-    @Column(name="status")
-    private String status;
+    @Column(name="total_price")
+    private double totalPrice;
 
+    @Override
+    public String toString() {
+        return "OrderItem{" +
+                "order=" + order +
+                ", product=" + product +
+                ", quantity=" + quantity +
+                ", pricePerUnit=" + pricePerUnit +
+                ", totalPrice=" + totalPrice +
+                '}';
+    }
 }

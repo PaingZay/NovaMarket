@@ -40,8 +40,7 @@ public class Cart {
     @JsonIgnore//Need to check error
     private List<CartItem> cartItems;
 
-    public Cart(Long id, Customer customer, LocalDate createdDate, String status) {
-        this.id = id;
+    public Cart(Customer customer, LocalDate createdDate, String status) {
         this.customer = customer;
         this.createdDate = createdDate;
         this.status = status;

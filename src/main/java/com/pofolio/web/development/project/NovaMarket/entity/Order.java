@@ -25,8 +25,9 @@ public class Order {
     @Column(name = "order_id")
     private Long id;
 
-    @Column(name = "customer_id")
-    private Long customerId;
+    @JoinColumn(name="customer_id")
+    @ManyToOne
+    private Customer customer;
 
     @Column(name = "order_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -43,11 +44,16 @@ public class Order {
     @JsonIgnore
     private List<OrderItem> orderItemList;
 
-
-
-
-
-
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", customer=" + customer +
+                ", orderDate=" + orderDate +
+                ", totalAmount=" + totalAmount +
+                ", status='" + status + '\'' +
+                '}';
+    }
 
     //Tin
 //    @ManyToMany(targetEntity = Product.class, cascade = {CascadeType.ALL, CascadeType.PERSIST}, fetch=FetchType.EAGER)

@@ -39,6 +39,14 @@ public class CartItemServiceImpl implements CartItemService{
     }
 
     @Override
+    public List<CartItem> getCartItemsByCartItemId(Long cartItemId) {
+        return cartItemRepository.findCartItemsByCartItemId(cartItemId);
+    }
+
+    //Set cart object in cartItem object on client side
+    //Then send cartItem object to server
+
+    @Override
     public CartItem addCartItem(CartItem cartItem) {
 
         var total = cartItem.getPricePerUnit() * cartItem.getQuantity();

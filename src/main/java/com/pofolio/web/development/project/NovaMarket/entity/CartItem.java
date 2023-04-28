@@ -36,8 +36,7 @@ public class CartItem {
     @Column(name = "total_price")
     private double totalPrice;
 
-    public CartItem(Long id, Cart cart, Product product, int quantity, double pricePerUnit, double totalPrice) {
-        this.id = id;
+    public CartItem(Cart cart, Product product, int quantity, double pricePerUnit, double totalPrice) {
         this.cart = cart;
         this.product = product;
         this.quantity = quantity;

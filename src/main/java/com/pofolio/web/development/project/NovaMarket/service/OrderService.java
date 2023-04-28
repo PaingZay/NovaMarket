@@ -13,4 +13,6 @@ public interface OrderService {
     Optional<Order> getOrderById(Long id);
 
     Boolean deleteOrderById(Long id);
+
+    Optional<Order> getSpecificOrder(Long customerId);
 }

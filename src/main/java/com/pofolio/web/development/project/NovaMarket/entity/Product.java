@@ -64,6 +64,11 @@ public class Product {
     @JsonIgnore//Need to check error
     private List<CartItem> cartItems;
 
+    @OneToMany(targetEntity = Review.class, mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @Fetch(FetchMode.SUBSELECT)
+    @JsonIgnore
+    private List<Review> reviewList;
+
     public Product(String productName, String description, Long categoryId, Double price)
     {
         this.productName = productName;

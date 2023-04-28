@@ -66,7 +66,7 @@ public class NovaMarketApplication {
 	}
 
 	@Bean
-	CommandLineRunner loadData(OrderService orderService, ProductService productService, OrderItemService orderItemService, UserService userService, WishlistService wishlistService, CartItemService cartItemService, CartItemRepository cartItemRepository) {
+	CommandLineRunner loadData(OrderService orderService, ProductService productService, OrderItemService orderItemService, UserService userService, WishlistService wishlistService, CartService cartService,CartItemService cartItemService, CartItemRepository cartItemRepository) {
 		return (args) -> {
 
 //			Order order1 = new Order();
@@ -184,13 +184,17 @@ public class NovaMarketApplication {
 //					System.out.println("Muda");
 //			}
 
-			Customer registeredUser = userService.registerUser(new Customer(1L,"Kyaw","Kyaw","kyawgyi@gmail.com","123456","East Dagon", "Yangon", "Yangon", "123131", "09955271558", LocalDate.of(2022,2,12)));
-
-			Cart cart1 = new Cart(1L,registeredUser,LocalDate.of(2022,2,12),"Completed");
-
-			Product product1 = new Product("productName", "descript", null, 100.0);
-
-			CartItem cartItem = new CartItem(1L, cart1, product1, 2, 100.0, 100.0);
+			//Creating Mock Data
+//			Customer registeredUser = userService.registerUser(new Customer("Kyaw","Kyaw","kyawgyi@gmail.com","123456","East Dagon", "Yangon", "Yangon", "123131", "09955271558", LocalDate.of(2022,2,12)));
+//
+//			Cart cart1 = new Cart(registeredUser,LocalDate.of(2022,2,12),"Completed");
+//			Cart savedCart1 = cartService.saveCart(cart1);
+//
+//			Product product1 = new Product("productName", "descript", null, 100.0);
+//			Product savedProduct1 = productService.saveProduct(product1);
+//
+//			CartItem cartItem = new CartItem(cart1, product1, 2, 100.0, 100.0);
+//			CartItem savedCartItem = cartItemService.addCartItem(cartItem);
 		};
 	}
 

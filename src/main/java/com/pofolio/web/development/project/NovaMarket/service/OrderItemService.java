@@ -18,4 +18,6 @@ public interface OrderItemService {
     Boolean deleteOrderItemById(Long id);
 
     Page<OrderItem> getAllOrderItems(int pageSize, int pageNumber, Long orderId);
+
+    List<OrderItem> copyRows(OrderItem orderItem, Long cartItemId);
 }

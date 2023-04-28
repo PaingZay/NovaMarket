@@ -72,6 +72,11 @@ public class Customer {
     @JsonIgnore
     private List<Cart> cartList;
 
+    @OneToMany(targetEntity = Order.class, mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @Fetch(FetchMode.SUBSELECT)
+    @JsonIgnore
+    private List<Order> orderList;
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -89,8 +94,7 @@ public class Customer {
                 '}';
     }
 
-    public Customer(Long id, String firstName, String lastName, String email, String password, String address, String city, String state, String zipCode, String phoneNumber, LocalDate dateOfBirth) {
-        this.id = id;
+    public Customer(String firstName, String lastName, String email, String password, String address, String city, String state, String zipCode, String phoneNumber, LocalDate dateOfBirth) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
