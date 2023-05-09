@@ -1,6 +1,7 @@
 package com.pofolio.web.development.project.NovaMarket.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pofolio.web.development.project.NovaMarket.entity.Category;
 import com.pofolio.web.development.project.NovaMarket.entity.Product;
 import com.pofolio.web.development.project.NovaMarket.entity.Wishlist;
 import com.pofolio.web.development.project.NovaMarket.repository.ProductRepository;
@@ -32,6 +33,9 @@ public class ProductServiceImpl implements ProductService{
 
     @Autowired
     WishlistRepository wishlistRepository;
+
+    @Autowired
+    CategoryService categoryService;
 
     @Transactional
     @Override
@@ -66,8 +70,9 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public List<Product> findProductByName(String productName) {
-        return productRepository.findProductByName(productName);
+    public Page<Product> findProductByName(String productName, int pageNumber, int pageSize) {
+        Pageable page = PageRequest.of(pageNumber,pageSize);
+        return productRepository.findProductByName(page, productName);
     }
 
 
@@ -90,8 +95,9 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public List<Product> searchProduct(String keyword) {
-        return productRepository.searchProducts(keyword);
+    public Page<Product> searchProduct(String keyword, int pageNumber, int pageSize) {
+        Pageable page = PageRequest.of(pageNumber,pageSize);
+        return productRepository.searchProducts(page, keyword);
     }
 
     @Override
@@ -108,6 +114,12 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public Optional<Product> findProductDetailsById(Long id) {
         return productRepository.findById(id);
+    }
+
+    @Override
+    public Page<Product> searchByCategory(int pageSize, int pageNumber, Long categoryId) {
+        Pageable page = PageRequest.of(pageNumber,pageSize);
+        return productRepository.findProductsByCategoryId(page, categoryId);
     }
 
 

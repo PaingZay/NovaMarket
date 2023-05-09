@@ -102,6 +102,15 @@
 			<version>23.0.0</version>
 			<scope>compile</scope>
 		</dependency>
+
+<!--		JUST Test-->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>

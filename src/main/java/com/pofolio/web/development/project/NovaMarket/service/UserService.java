@@ -1,7 +1,9 @@
 package com.pofolio.web.development.project.NovaMarket.service;
 
 import com.pofolio.web.development.project.NovaMarket.entity.Customer;
+import org.springframework.data.domain.Page;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
@@ -12,4 +14,8 @@ public interface UserService {
     Boolean findUserByEmail(String email);
 
     Optional<Customer> findUserById(Long id);
+
+    List<Customer> getAllCustomers();
+
+//    List<Customer> getAllCustomers();
 }

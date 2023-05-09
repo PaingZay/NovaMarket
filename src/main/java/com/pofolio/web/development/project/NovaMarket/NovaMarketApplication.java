@@ -2,6 +2,7 @@ package com.pofolio.web.development.project.NovaMarket;
 
 import com.pofolio.web.development.project.NovaMarket.entity.*;
 import com.pofolio.web.development.project.NovaMarket.repository.CartItemRepository;
+import com.pofolio.web.development.project.NovaMarket.repository.ProductRepository;
 import com.pofolio.web.development.project.NovaMarket.repository.WishlistRepository;
 import com.pofolio.web.development.project.NovaMarket.service.*;
 import jakarta.annotation.PostConstruct;
@@ -14,6 +15,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -66,7 +69,7 @@ public class NovaMarketApplication {
 	}
 
 	@Bean
-	CommandLineRunner loadData(OrderService orderService, ProductService productService, OrderItemService orderItemService, UserService userService, WishlistService wishlistService, CartService cartService,CartItemService cartItemService, CartItemRepository cartItemRepository) {
+	CommandLineRunner loadData(OrderService orderService, ProductService productService, ProductRepository productRepository, OrderItemService orderItemService, UserService userService, WishlistService wishlistService, CartService cartService, CartItemService cartItemService, CartItemRepository cartItemRepository) {
 		return (args) -> {
 
 //			Order order1 = new Order();
@@ -195,6 +198,13 @@ public class NovaMarketApplication {
 //
 //			CartItem cartItem = new CartItem(cart1, product1, 2, 100.0, 100.0);
 //			CartItem savedCartItem = cartItemService.addCartItem(cartItem);
+
+			/////
+
+//			Pageable page = PageRequest.of(0,1);
+//			List<Product> products = productRepository.findProductByName(page,"Al-Haitham").stream().toList();
+//			if(products.size()>0)
+//			products.forEach((n) -> System.out.println(n));
 		};
 	}
 

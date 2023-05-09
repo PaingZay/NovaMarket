@@ -3,6 +3,7 @@ package com.pofolio.web.development.project.NovaMarket.controller;
 import com.pofolio.web.development.project.NovaMarket.NovaMarketApplication;
 import com.pofolio.web.development.project.NovaMarket.entity.Cart;
 import com.pofolio.web.development.project.NovaMarket.entity.CartItem;
+import com.pofolio.web.development.project.NovaMarket.entity.Product;
 import com.pofolio.web.development.project.NovaMarket.service.CartItemService;
 import com.pofolio.web.development.project.NovaMarket.service.CartService;
 import com.pofolio.web.development.project.NovaMarket.service.UserService;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 
+@CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/api")
 public class CartControlller {
@@ -151,6 +153,22 @@ public class CartControlller {
             System.out.println( "Updated Cart" + savedCart);
 
             return new ResponseEntity<>(savedCart, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    //Testing Purpose & Not Necessarily Needed
+
+    @GetMapping("/AllCarts")
+    public ResponseEntity<Page<Cart>> getAllProducts(@RequestParam int pageSize, @RequestParam int pageNumber) {
+//        logger.info("Getting all members");
+        try {
+            Page<Cart> carts = cartService.getCartList(pageSize,pageNumber);
+            if (carts.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(carts, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }

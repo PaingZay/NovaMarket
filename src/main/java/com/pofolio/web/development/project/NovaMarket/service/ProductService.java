@@ -20,13 +20,15 @@ public interface ProductService {
 
     List<Product> saveProductList(List<Product> productList);
 
-    List<Product> findProductByName(String productName);
+    Page<Product> findProductByName(String productName, int pageNumber, int pageSize);
 
     Product saveProduct2(String product, MultipartFile file) throws IOException;
 
-    List<Product> searchProduct(String keyword);
+    Page<Product> searchProduct(String keyword, int pageNumber, int pageSize);
 
     Page<Product> filterByPriceRange(int pageSize, int pageNumber, double startPrice, double endPrice);
 
     Optional<Product> findProductDetailsById(Long id);
+
+    Page<Product> searchByCategory(int pageSize, int pageNumber, Long categoryId);
 }

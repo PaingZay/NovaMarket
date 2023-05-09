@@ -56,10 +56,15 @@ public class CartItemServiceImpl implements CartItemService{
     }
 
     @Override
-    public Boolean deleteCartItemById(Long cartItemId) {
+    public boolean deleteCartItemById(Long cartItemId) {
         try {
-//          cartItemRepository.removeCartItemById(cartItemId);
+            //cartItemRepository.removeCartItemById(cartItemId);
+
             cartItemRepository.deleteById(cartItemId);
+
+            //CartItem cartItemdb = cartItemRepository.findById(cartItemId).get();
+            //cartItemRepository.delete(cartItemdb);
+
             System.out.println("TRUE");
             return true;
         } catch (Exception e) {

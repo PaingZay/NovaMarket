@@ -28,9 +28,6 @@ public class Product {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "category_id")
-    private Long categoryId;
-
     @Column(name = "price")
     private Double price;
 
@@ -49,6 +46,10 @@ public class Product {
 
     @Column(name = "dimension")
     private String dimension;
+
+    @ManyToOne
+    @JoinColumn(name="category_id")
+    private Category category;
 
 //    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,
 //            CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
@@ -69,11 +70,11 @@ public class Product {
     @JsonIgnore
     private List<Review> reviewList;
 
-    public Product(String productName, String description, Long categoryId, Double price)
+    public Product(String productName, String description, Category category, Double price)
     {
         this.productName = productName;
         this.description = description;
-        this.categoryId = categoryId;
+        this.category = category;
         this.price = price;
     }
 }

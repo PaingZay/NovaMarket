@@ -99,4 +99,10 @@ public class CartServiceImpl implements CartService{
          }
         return cartRepository.save(savedCart);
     }
+
+    @Override
+    public Page<Cart> getCartList(int pageSize, int pageNumber) {
+        Pageable page = PageRequest.of(pageNumber,pageSize);
+        return cartRepository.findAll(page);
+    }
 }

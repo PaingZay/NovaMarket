@@ -3,9 +3,13 @@ package com.pofolio.web.development.project.NovaMarket.service;
 import com.pofolio.web.development.project.NovaMarket.entity.Customer;
 import com.pofolio.web.development.project.NovaMarket.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -40,4 +44,14 @@ public class UserServiceImpl implements UserService{
     public Optional<Customer> findUserById(Long id) {
         return userRepository.findById(id);
     }
+
+    @Override
+    public List<Customer> getAllCustomers() {
+        return userRepository.findAll();
+    }
+
+//    @Override
+//    public List<Customer> getAllCustomers(int pageSize, int pageNumber) {
+//        return userRepository.findAll();
+//    }
 }

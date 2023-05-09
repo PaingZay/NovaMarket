@@ -17,7 +17,7 @@ public interface CartItemService {
 
     CartItem addCartItem(CartItem cartItem);
 
-    Boolean deleteCartItemById(Long cartItemId);
+    boolean deleteCartItemById(Long cartItemId);
 
     Boolean removeAllCartItemsById(Long cartId);
 }

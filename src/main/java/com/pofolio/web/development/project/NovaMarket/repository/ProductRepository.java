@@ -18,15 +18,18 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
 //    List<Employee> findEmployeesByManagerId(@Param("mgrid") String mgrid);
 
     @Query("SELECT p FROM Product p where p.productName = :productName")
-    List<Product> findProductByName(@Param("productName") String productName);
+    Page<Product> findProductByName(Pageable page,@Param("productName") String productName);
 
     @Query("SELECT p FROM Product p WHERE p.productName LIKE %?1%"
             + " OR p.description LIKE %?1%"
 //            + " OR p.madein LIKE %?1%"
             + " OR CONCAT(p.price, '') LIKE %?1%")
-    public List<Product> searchProducts(String keyword);
+    public Page<Product> searchProducts(Pageable page,String keyword);
 
     @Query("SELECT p FROM Product p where price>:startPrice and price<:endPrice")
     public Page<Product> filterByPriceRange(Pageable page, @Param("startPrice")double startPrice, @Param("endPrice") double endPrice);
+
+    @Query("SELECT p FROM Product p where p.category.id = :categoryId")
+    Page<Product> findProductsByCategoryId(Pageable page,@Param("categoryId") Long categoryId);
 
 }
