@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/api")
 public class ProductDetailsController {
@@ -34,13 +35,13 @@ public class ProductDetailsController {
     @Autowired
     UserService userService;
 
-//    @Operation(summary = "Get a product", description = "Retrieve an existing product details based on unique key ID")
-//    @GetMapping("/products/{id}")
-//    public ResponseEntity<Product> findProductDetailsById(@PathVariable(value = "id") Long id) {
-//        return productService.findProductDetailsById(id)
-//                .map(ResponseEntity::ok)
-//                .orElseGet(() -> ResponseEntity.notFound().build());
-//    }
+    //@Operation(summary = "Get a product", description = "Retrieve an existing product details based on unique key ID")
+    @GetMapping("/product/{id}")
+    public ResponseEntity<Product> findProductDetailsById(@PathVariable(value = "id") Long id) {
+        return productService.findProductDetailsById(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
 
     //METHOD
     @PostMapping("/wishlists/{productId}")
