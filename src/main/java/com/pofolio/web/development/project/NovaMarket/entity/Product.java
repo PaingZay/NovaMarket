@@ -31,6 +31,9 @@ public class Product {
     @Column(name = "price")
     private Double price;
 
+    @Column(name = "sku")
+    private int sku;
+
     @Column(name = "discount_price")
     private Double discountPrice;
 
