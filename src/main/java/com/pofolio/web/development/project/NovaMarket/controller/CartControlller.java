@@ -3,20 +3,17 @@ package com.pofolio.web.development.project.NovaMarket.controller;
 import com.pofolio.web.development.project.NovaMarket.NovaMarketApplication;
 import com.pofolio.web.development.project.NovaMarket.entity.Cart;
 import com.pofolio.web.development.project.NovaMarket.entity.CartItem;
-import com.pofolio.web.development.project.NovaMarket.entity.Product;
 import com.pofolio.web.development.project.NovaMarket.service.CartItemService;
 import com.pofolio.web.development.project.NovaMarket.service.CartService;
 import com.pofolio.web.development.project.NovaMarket.service.UserService;
+import com.pofolio.web.development.project.NovaMarket.utils.ExtractJWT;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
 
 @CrossOrigin("http://localhost:3000")
 @RestController
@@ -48,6 +45,32 @@ public class CartControlller {
             } else {
                 return new ResponseEntity<>(savedCart, HttpStatus.CONFLICT);
 
+            }
+        }
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    //JWT TEST
+    @GetMapping("/cart/secure/{customerId}")
+    //@RequestHeader.... passing the access token to our backend application
+    //It's validating with Okta automatically
+    public ResponseEntity<Cart> getCartByIdJWT(@RequestHeader(value = "Authorization") String token, @PathVariable("customerId") Long customerId){
+        logger.info("Get cart, id" + customerId);
+        try {
+            String userEmail = ExtractJWT.payloadJWTExtraction(token);
+
+            //I think customerId is not needed in this situation
+            Long customerId2 = userService.findUserByEmail(userEmail).get().getId();
+
+            Cart savedCart = cartService.getSpecificCart(customerId2).get();
+
+            if (savedCart != null) {
+                return new ResponseEntity<>(savedCart, HttpStatus.CREATED);
+            } else {
+                return new ResponseEntity<>(savedCart, HttpStatus.CONFLICT);
             }
         }
         catch (Exception e)

@@ -2,6 +2,7 @@ package com.pofolio.web.development.project.NovaMarket.config;
 
 
 import com.pofolio.web.development.project.NovaMarket.entity.Book;
+import com.pofolio.web.development.project.NovaMarket.entity.Cart;
 import com.pofolio.web.development.project.NovaMarket.entity.Customer;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
@@ -25,9 +26,11 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
 
         config.exposeIdsFor(Customer.class);
         config.exposeIdsFor(Book.class);
+        config.exposeIdsFor(Cart.class);
 
         disableHttpMethods(Customer.class, config, theUnsupportedActions);
         disableHttpMethods(Book.class, config, theUnsupportedActions);
+        disableHttpMethods(Cart.class, config, theUnsupportedActions);
 
         /* Configure CORS Mapping */
         cors.addMapping(config.getBasePath() + "/**")

@@ -2,20 +2,15 @@ package com.pofolio.web.development.project.NovaMarket.controller;
 
 import com.pofolio.web.development.project.NovaMarket.NovaMarketApplication;
 import com.pofolio.web.development.project.NovaMarket.entity.Customer;
-import com.pofolio.web.development.project.NovaMarket.entity.Review;
 import com.pofolio.web.development.project.NovaMarket.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.slf4j.Logger;
 
 import java.util.List;
-
-import static org.slf4j.LoggerFactory.getLogger;
 
 @CrossOrigin("http://localhost:3000")
 @RestController
@@ -32,7 +27,7 @@ public class UserController {
         logger.info("Creating new member");
         try {
             System.out.println("Hello1");
-            Boolean existingStatus = userService.findUserByEmail(customer.getEmail());
+            Boolean existingStatus = userService.verifyExistingUserByEmail(customer.getEmail());
             if (!existingStatus) {
                 System.out.println("Hello2");
                 Customer savedUser = userService.registerUser(customer);

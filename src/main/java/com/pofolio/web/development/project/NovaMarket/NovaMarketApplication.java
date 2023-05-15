@@ -1,27 +1,12 @@
 package com.pofolio.web.development.project.NovaMarket;
 
-import com.pofolio.web.development.project.NovaMarket.entity.*;
 import com.pofolio.web.development.project.NovaMarket.repository.CartItemRepository;
 import com.pofolio.web.development.project.NovaMarket.repository.ProductRepository;
-import com.pofolio.web.development.project.NovaMarket.repository.WishlistRepository;
 import com.pofolio.web.development.project.NovaMarket.service.*;
-import jakarta.annotation.PostConstruct;
-import jakarta.transaction.Transactional;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-
-import java.time.LocalDate;
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @SpringBootApplication
 public class NovaMarketApplication {

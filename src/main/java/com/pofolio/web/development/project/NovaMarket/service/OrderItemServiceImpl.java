@@ -1,17 +1,15 @@
 package com.pofolio.web.development.project.NovaMarket.service;
 
 import com.pofolio.web.development.project.NovaMarket.entity.CartItem;
-import com.pofolio.web.development.project.NovaMarket.entity.Order;
 import com.pofolio.web.development.project.NovaMarket.entity.OrderItem;
 import com.pofolio.web.development.project.NovaMarket.repository.OrderItemRepository;
-import jakarta.annotation.Resource;
-import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

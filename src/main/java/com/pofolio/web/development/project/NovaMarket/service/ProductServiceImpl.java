@@ -1,15 +1,10 @@
 package com.pofolio.web.development.project.NovaMarket.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pofolio.web.development.project.NovaMarket.entity.Category;
 import com.pofolio.web.development.project.NovaMarket.entity.Product;
-import com.pofolio.web.development.project.NovaMarket.entity.Wishlist;
 import com.pofolio.web.development.project.NovaMarket.repository.ProductRepository;
 import com.pofolio.web.development.project.NovaMarket.repository.WishlistRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;

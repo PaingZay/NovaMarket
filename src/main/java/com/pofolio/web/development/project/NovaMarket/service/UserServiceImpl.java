@@ -3,9 +3,6 @@ package com.pofolio.web.development.project.NovaMarket.service;
 import com.pofolio.web.development.project.NovaMarket.entity.Customer;
 import com.pofolio.web.development.project.NovaMarket.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,7 +27,13 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Boolean findUserByEmail(String email) {
+    public Optional<Customer> findUserByEmail(String email) {
+        Optional<Customer> user = userRepository.findUserByEmail(email);
+        return user;
+    }
+
+    @Override
+    public Boolean verifyExistingUserByEmail(String email) {
         Optional<Customer> user = userRepository.findUserByEmail(email);
         if (user.isPresent()) {
             return true;

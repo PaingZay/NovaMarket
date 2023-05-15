@@ -2,11 +2,10 @@ package com.pofolio.web.development.project.NovaMarket.service;
 
 import com.pofolio.web.development.project.NovaMarket.entity.Order;
 import com.pofolio.web.development.project.NovaMarket.repository.OrderRepository;
-import jakarta.annotation.Resource;
-import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
