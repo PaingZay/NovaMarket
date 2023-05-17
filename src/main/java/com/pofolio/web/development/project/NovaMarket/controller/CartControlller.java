@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/api")
@@ -60,7 +62,7 @@ public class CartControlller {
     public ResponseEntity<Cart> getCartByIdJWT(@RequestHeader(value = "Authorization") String token, @PathVariable("customerId") Long customerId){
         logger.info("Get cart, id" + customerId);
         try {
-            String userEmail = ExtractJWT.payloadJWTExtraction(token);
+            String userEmail = ExtractJWT.payloadJWTExtraction(token, "\"sub\"");
 
             //I think customerId is not needed in this situation
             Long customerId2 = userService.findUserByEmail(userEmail).get().getId();
@@ -104,6 +106,22 @@ public class CartControlller {
 //        logger.info("Getting all members");
         try {
             Page<CartItem> cartItems = cartItemService.getAllCartItems(pageSize,pageNumber,cartId);
+            if (cartItems.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(cartItems, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    @GetMapping("/cart/items/secure/{cartId}")
+    public ResponseEntity<List<CartItem>> secureGetAllProducts(@RequestHeader(value = "Authorization", required=false) String token, @PathVariable("cartId") Long cartId) {
+//        logger.info("Getting all members");
+        try {
+
+            List<CartItem> cartItems = cartItemService.getCartItemListByCartId(cartId);
             if (cartItems.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
