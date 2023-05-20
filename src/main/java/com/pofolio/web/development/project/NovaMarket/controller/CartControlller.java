@@ -199,6 +199,59 @@ public class CartControlller {
         }
     }
 
+    @PutMapping("/cart/items/secure/increase/{productId}")
+    public ResponseEntity<CartItem> increaseQuantity(@RequestHeader(value = "Authorization") String token, @PathVariable("productId") Long productId) {
+        logger.info("Update new member");
+        try {
+
+            String userEmail = ExtractJWT.payloadJWTExtraction(token, "\"sub\"");
+
+            Long customerId = userService.findUserByEmail(userEmail).get().getId();
+
+            CartItem updatedCartItem = cartItemService.increaseQuantity(customerId, productId);
+
+            System.out.println( "Updated Cart" + updatedCartItem);
+
+            return new ResponseEntity<>(updatedCartItem, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/cart/items/secure/decrease/{productId}")
+    public ResponseEntity<CartItem> decreaseQuantity(@RequestHeader(value = "Authorization") String token, @PathVariable("productId") Long productId) {
+        logger.info("Update new member");
+        try {
+
+            String userEmail = ExtractJWT.payloadJWTExtraction(token, "\"sub\"");
+
+            Long customerId = userService.findUserByEmail(userEmail).get().getId();
+
+            CartItem updatedCartItem = cartItemService.decreaseQuantity(customerId, productId);
+
+            return new ResponseEntity<>(updatedCartItem, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+//    @PutMapping("/cart/items/secure/total")
+//    public ResponseEntity<Double> calculateSubtotal(@RequestHeader(value = "Authorization") String token) {
+//        logger.info("Update new member");
+//        try {
+//
+//            String userEmail = ExtractJWT.payloadJWTExtraction(token, "\"sub\"");
+//
+//            Long customerId = userService.findUserByEmail(userEmail).get().getId();
+//
+//            double total = cartItemService.calculateSubtotal(customerId);
+//
+//            return new ResponseEntity<>(total, HttpStatus.CREATED);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
+
     //Testing Purpose & Not Necessarily Needed
 
     @GetMapping("/AllCarts")
@@ -214,4 +267,6 @@ public class CartControlller {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
 }

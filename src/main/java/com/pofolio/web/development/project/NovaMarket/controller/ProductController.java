@@ -1,24 +1,16 @@
 package com.pofolio.web.development.project.NovaMarket.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pofolio.web.development.project.NovaMarket.entity.Product;
 import com.pofolio.web.development.project.NovaMarket.repository.ProductRepository;
 import com.pofolio.web.development.project.NovaMarket.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.print.Pageable;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
+@CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/api")
 public class ProductController {

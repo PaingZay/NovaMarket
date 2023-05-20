@@ -25,7 +25,7 @@ public class SecurityConfiguration {
                                         "/api/messages/secure/**",
                                         "/api/admin/secure/**",
                                         "/api/cart/secure/**",
-                                        "/api/cart/items/secure/**"
+                                        "/api/cart/items/secure/increase/**"
                                         )
 
                                 .authenticated())

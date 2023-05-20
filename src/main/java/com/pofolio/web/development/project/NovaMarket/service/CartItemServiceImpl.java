@@ -1,5 +1,6 @@
 package com.pofolio.web.development.project.NovaMarket.service;
 
+import com.pofolio.web.development.project.NovaMarket.entity.Cart;
 import com.pofolio.web.development.project.NovaMarket.entity.CartItem;
 import com.pofolio.web.development.project.NovaMarket.repository.CartItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class CartItemServiceImpl implements CartItemService{
 
     @Autowired
     CartItemRepository cartItemRepository;
+
+    @Autowired
+    CartService cartService;
 
     @Override
     public Optional<CartItem> getCartItemById(Long cartItemId) {
@@ -95,6 +99,70 @@ public class CartItemServiceImpl implements CartItemService{
     @Override
     public Boolean removeAllCartItemsById(Long cartId) {
         return cartItemRepository.removeAllCartItemsById(cartId);
+    }
+
+    @Override
+    public CartItem increaseQuantity(Long customerId, Long productId ) {
+
+        Cart savedCart = cartService.getSpecificCart(customerId).get();
+
+        List<CartItem> cartItems = cartItemRepository.findCartItemsByCartId(savedCart.getId());
+
+        CartItem updatedCartItem = updateQuantity(cartItems, 1, productId);
+
+        calculateTotal(cartItems);
+
+        return updatedCartItem;
+    }
+
+    @Override
+    public CartItem decreaseQuantity(Long customerId, Long productId ) {
+
+        Cart savedCart = cartService.getSpecificCart(customerId).get();
+
+        List<CartItem> cartItems = cartItemRepository.findCartItemsByCartId(savedCart.getId());
+
+        CartItem updatedCartItem = updateQuantity(cartItems, -1, productId);
+
+        calculateTotal(cartItems);
+
+        return updatedCartItem;
+    }
+
+    public void calculateTotal(List<CartItem> cartItems) {
+        double subtotal = 0;
+        for(CartItem cartItem: cartItems){
+            subtotal = cartItem.getPricePerUnit() * cartItem.getQuantity();
+            cartItem.setTotalPrice(subtotal);
+            cartItemRepository.saveAndFlush(cartItem);
+        }
+    }
+
+//    @Override
+//    public double calculateSubtotal(Long customerId) {
+//        Cart savedCart = cartService.getSpecificCart(customerId).get();
+//        List<CartItem> cartItems = cartItemRepository.findCartItemsByCartId(savedCart.getId());
+//
+//        CartItem updatedCartItem = new CartItem();
+//        double subtotal = 0;
+//        double total = 0;
+//        for(CartItem cartItem: cartItems){
+//                subtotal = cartItem.getPricePerUnit() * cartItem.getQuantity();
+//                cartItem.setTotalPrice(subtotal);
+//                cartItemRepository.saveAndFlush(cartItem);
+//                total += subtotal;
+//            }
+//        return total;
+//    }
+
+    public CartItem updateQuantity(List<CartItem> cartItems, int num,Long productId) {
+        CartItem updatedCartItem = new CartItem();
+        for(CartItem cartItem: cartItems)
+            if(cartItem.getProduct().getId() == productId) {
+                cartItem.setQuantity(cartItem.getQuantity()+num);
+                updatedCartItem = cartItemRepository.saveAndFlush(cartItem);
+            }
+        return updatedCartItem;
     }
 
 }

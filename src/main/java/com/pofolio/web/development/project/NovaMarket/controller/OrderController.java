@@ -1,8 +1,6 @@
 package com.pofolio.web.development.project.NovaMarket.controller;
 
 import com.pofolio.web.development.project.NovaMarket.NovaMarketApplication;
-import com.pofolio.web.development.project.NovaMarket.entity.Cart;
-import com.pofolio.web.development.project.NovaMarket.entity.CartItem;
 import com.pofolio.web.development.project.NovaMarket.entity.Order;
 import com.pofolio.web.development.project.NovaMarket.entity.OrderItem;
 import com.pofolio.web.development.project.NovaMarket.service.OrderItemService;
@@ -17,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/api")
 public class OrderController {

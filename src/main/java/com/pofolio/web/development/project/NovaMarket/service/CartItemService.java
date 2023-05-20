@@ -20,4 +20,9 @@ public interface CartItemService {
     boolean deleteCartItemById(Long cartItemId);
 
     Boolean removeAllCartItemsById(Long cartId);
+
+    CartItem increaseQuantity(Long customerId, Long productId);
+
+    CartItem decreaseQuantity(Long customerId, Long productId);
+
 }
