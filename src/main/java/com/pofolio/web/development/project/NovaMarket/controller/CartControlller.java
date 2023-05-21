@@ -36,16 +36,12 @@ public class CartControlller {
     public ResponseEntity<Cart> getCartById(@PathVariable("customerId") Long customerId){
         logger.info("Get cart, id" + customerId);
         try {
-            Cart savedCart;
-
-            savedCart = cartService.getSpecificCart(customerId).get();
-
-            System.out.println("IN CONTROLLER" + savedCart);
+            Cart savedCart = cartService.getSpecificCart(customerId).get();
 
             if (savedCart != null) {
                 return new ResponseEntity<>(savedCart, HttpStatus.CREATED);
             } else {
-                return new ResponseEntity<>(savedCart, HttpStatus.CONFLICT);
+                return new ResponseEntity<>(null, HttpStatus.CONFLICT);
 
             }
         }
@@ -72,7 +68,7 @@ public class CartControlller {
             if (savedCart != null) {
                 return new ResponseEntity<>(savedCart, HttpStatus.CREATED);
             } else {
-                return new ResponseEntity<>(savedCart, HttpStatus.CONFLICT);
+                return new ResponseEntity<>(null, HttpStatus.CONFLICT);
             }
         }
         catch (Exception e)
@@ -85,8 +81,8 @@ public class CartControlller {
     //If there is no existing cart then
     //Redirect to following post method
 
-    @PostMapping("/cart")
-    public ResponseEntity<Cart> saveMember(@RequestBody Cart cart) {
+    @PostMapping("/cart/secure")
+    public ResponseEntity<Cart> saveMember(@RequestHeader(value = "Authorization") String token, @RequestBody Cart cart) {
         logger.info("Creating new member");
         try {
             Cart createdCart = cartService.saveCart(cart);
@@ -136,14 +132,18 @@ public class CartControlller {
 
     //POSTMapping because we are adding new cart item but not updating cart
     //BTW this is AddToCart Method
-    @PostMapping("/cart/items")
-    public ResponseEntity<CartItem> addItemsToCart(@RequestBody CartItem cartItem) {
-        logger.info("Adding items to cart");
+    @PostMapping("/cart/items/secure/addToCart")
+    public ResponseEntity<CartItem> AddToCart(@RequestHeader(value = "Authorization") String token,@RequestBody CartItem cartItem) {
+        logger.info("Update new member");
         try {
-            CartItem savedCartItem = cartItemService.addCartItem(cartItem);
-            System.out.println(savedCartItem);
-                return new ResponseEntity<>(savedCartItem, HttpStatus.CREATED);
 
+            String userEmail = ExtractJWT.payloadJWTExtraction(token, "\"sub\"");
+
+            Long customerId = userService.findUserByEmail(userEmail).get().getId();
+
+            CartItem updatedCartItem = cartItemService.addCartItem(cartItem);
+
+            return new ResponseEntity<>(updatedCartItem, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }

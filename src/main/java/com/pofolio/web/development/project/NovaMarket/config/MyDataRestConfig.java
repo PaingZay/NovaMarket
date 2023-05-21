@@ -1,10 +1,7 @@
 package com.pofolio.web.development.project.NovaMarket.config;
 
 
-import com.pofolio.web.development.project.NovaMarket.entity.Book;
-import com.pofolio.web.development.project.NovaMarket.entity.Cart;
-import com.pofolio.web.development.project.NovaMarket.entity.CartItem;
-import com.pofolio.web.development.project.NovaMarket.entity.Customer;
+import com.pofolio.web.development.project.NovaMarket.entity.*;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
@@ -25,15 +22,28 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
                 HttpMethod.DELETE,
                 HttpMethod.PUT};
 
-        config.exposeIdsFor(Customer.class);
-        config.exposeIdsFor(Book.class);
         config.exposeIdsFor(Cart.class);
         config.exposeIdsFor(CartItem.class);
+        config.exposeIdsFor(Category.class);
+        config.exposeIdsFor(Customer.class);
+        config.exposeIdsFor(Order.class);
+        config.exposeIdsFor(OrderItem.class);
+        config.exposeIdsFor(Product.class);
+        config.exposeIdsFor(Review.class);
+        config.exposeIdsFor(Book.class);
 
-        disableHttpMethods(Customer.class, config, theUnsupportedActions);
-        disableHttpMethods(Book.class, config, theUnsupportedActions);
+
         disableHttpMethods(Cart.class, config, theUnsupportedActions);
         disableHttpMethods(CartItem.class, config, theUnsupportedActions);
+        disableHttpMethods(Category.class, config, theUnsupportedActions);
+        disableHttpMethods(Customer.class, config, theUnsupportedActions);
+        disableHttpMethods(Order.class, config, theUnsupportedActions);
+        disableHttpMethods(OrderItem.class, config, theUnsupportedActions);
+        disableHttpMethods(Product.class, config, theUnsupportedActions);
+        disableHttpMethods(Review.class, config, theUnsupportedActions);
+        disableHttpMethods(Book.class, config, theUnsupportedActions);
+
+
 
         /* Configure CORS Mapping */
         cors.addMapping(config.getBasePath() + "/**")

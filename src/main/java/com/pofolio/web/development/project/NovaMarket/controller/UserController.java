@@ -3,6 +3,7 @@ package com.pofolio.web.development.project.NovaMarket.controller;
 import com.pofolio.web.development.project.NovaMarket.NovaMarketApplication;
 import com.pofolio.web.development.project.NovaMarket.entity.Customer;
 import com.pofolio.web.development.project.NovaMarket.service.UserService;
+import com.pofolio.web.development.project.NovaMarket.utils.ExtractJWT;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,26 @@ public class UserController {
                 return new ResponseEntity<>(unsavedUser,HttpStatus.CONFLICT);
             }
         } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/user/secure")
+    public ResponseEntity<Customer> getCartById(@RequestHeader(value = "Authorization") String token){
+        try {
+            String userEmail = ExtractJWT.payloadJWTExtraction(token, "\"sub\"");
+
+            Customer user = userService.findUserByEmail(userEmail).get();
+
+            if (user != null) {
+                return new ResponseEntity<>(user, HttpStatus.CREATED);
+            } else {
+                return new ResponseEntity<>(user, HttpStatus.CONFLICT);
+
+            }
+        }
+        catch (Exception e)
+        {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
