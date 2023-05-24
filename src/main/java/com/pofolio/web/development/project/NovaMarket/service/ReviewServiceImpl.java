@@ -10,6 +10,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ReviewServiceImpl implements ReviewService{
 
@@ -31,5 +33,10 @@ public class ReviewServiceImpl implements ReviewService{
             review.setProduct(product);
             return reviewRepository.save(review);
         }).orElseThrow(() -> new ResourceNotFoundException("PostId " + productId + " not found"));
+    }
+
+    @Override
+    public Optional<Review> getReview(Long productId, Long customerId) {
+        return reviewRepository.findReviewByUserIdAndProductId(productId, customerId);
     }
 }

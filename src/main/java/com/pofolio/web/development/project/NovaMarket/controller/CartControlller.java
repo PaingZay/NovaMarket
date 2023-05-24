@@ -132,7 +132,7 @@ public class CartControlller {
 
     //POSTMapping because we are adding new cart item but not updating cart
     //BTW this is AddToCart Method
-    @PostMapping("/cart/items/secure/addToCart")
+    @PutMapping("/cart/items/secure/addToCart")
     public ResponseEntity<CartItem> AddToCart(@RequestHeader(value = "Authorization") String token,@RequestBody CartItem cartItem) {
         logger.info("Update new member");
         try {

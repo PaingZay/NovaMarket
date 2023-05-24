@@ -52,10 +52,32 @@ public class CartItemServiceImpl implements CartItemService{
     @Override
     public CartItem addCartItem(CartItem cartItem) {
 
+        Optional<CartItem> optExistingCartItem = cartItemRepository.findByProductIdAndCartId(cartItem.getProduct().getId(),cartItem.getCart().getId());
+
+        if(!optExistingCartItem.isEmpty()) {
+            CartItem existingCartItem = optExistingCartItem.get();
+
+            Long existingProductId = existingCartItem.getProduct().getId();
+
+            //Set ID
+            //In order to use saveAndFlush we need to set the existing id to the new object otherwise it will generate a new Id and add a new row
+            //Or you can just set the new quantity to the existing object and save it again
+            cartItem.setId(optExistingCartItem.get().getId());
+
+            if(cartItem.getProduct().getId() == existingProductId) {
+                //Set new quantity
+                cartItem.setQuantity(existingCartItem.getQuantity() + cartItem.getQuantity());
+            }
+        } else {
+            System.out.println("No existing products with the same Id of the new item");
+        }
+
+
+
         var total = cartItem.getPricePerUnit() * cartItem.getQuantity();
         cartItem.setTotalPrice(total);
 
-        return cartItemRepository.save(cartItem);
+        return cartItemRepository.saveAndFlush(cartItem);
     }
 
     @Override

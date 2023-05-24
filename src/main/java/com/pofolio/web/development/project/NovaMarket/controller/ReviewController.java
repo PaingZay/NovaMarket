@@ -3,6 +3,8 @@ package com.pofolio.web.development.project.NovaMarket.controller;
 import com.pofolio.web.development.project.NovaMarket.NovaMarketApplication;
 import com.pofolio.web.development.project.NovaMarket.entity.Review;
 import com.pofolio.web.development.project.NovaMarket.service.ReviewService;
+import com.pofolio.web.development.project.NovaMarket.service.UserService;
+import com.pofolio.web.development.project.NovaMarket.utils.ExtractJWT;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +21,9 @@ public class ReviewController {
 
     @Autowired
     ReviewService reviewService;
+
+    @Autowired
+    UserService userService;
 
     private static final Logger logger = LoggerFactory.getLogger(NovaMarketApplication.class);
 
@@ -50,6 +55,20 @@ public class ReviewController {
         logger.info("Creating new order");
         try {
             Review savedReview = reviewService.saveReview(productId, review);
+            return new ResponseEntity<>(savedReview, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/product/secure/{productId}/reviews")
+    public ResponseEntity<Review> userReview(@RequestHeader(value = "Authorization") String token, @PathVariable(value = "productId") Long productId) {
+        logger.info("Creating new order");
+        try {
+            String userEmail = ExtractJWT.payloadJWTExtraction(token, "\"sub\"");
+            Long customerId = userService.findUserByEmail(userEmail).get().getId();
+
+            Review savedReview = reviewService.getReview(productId, customerId).get();
             return new ResponseEntity<>(savedReview, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

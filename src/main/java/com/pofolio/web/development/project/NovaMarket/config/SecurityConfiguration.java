@@ -27,7 +27,8 @@ public class SecurityConfiguration {
                                         "/api/cart/secure/**",
                                         "/api/cart/items/secure/increase/**",
                                         "/api/user/secure/**",
-                                        "/api/cart/secure/**"
+                                        "/api/cart/secure/**",
+                                        "/api/product/secure/**"
                                         )
 
                                 .authenticated())

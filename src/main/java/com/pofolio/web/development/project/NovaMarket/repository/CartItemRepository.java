@@ -8,9 +8,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CartItemRepository extends JpaRepository<CartItem,Long> {
@@ -25,6 +25,9 @@ public interface CartItemRepository extends JpaRepository<CartItem,Long> {
 
     @Query("SELECT ci FROM CartItem ci where ci.id = :cartItemId")
     public List<CartItem> findCartItemsByCartItemId(@Param("cartItemId")Long cartItemId);
+
+    @Query("SELECT ci FROM CartItem ci where ci.product.id = :productId And ci.cart.id = :cartId")
+    public Optional<CartItem> findByProductIdAndCartId(@Param("productId")Long productId, @Param("cartId")Long cartId);
 
     @Query("delete from CartItem c where c.id=:cartItemId")
     public Boolean removeCartItemById(@Param("cartItemId")Long cartItemId);
