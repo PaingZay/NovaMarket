@@ -2,10 +2,10 @@ package com.pofolio.web.development.project.NovaMarket.controller;
 
 import com.pofolio.web.development.project.NovaMarket.NovaMarketApplication;
 import com.pofolio.web.development.project.NovaMarket.entity.Review;
+import com.pofolio.web.development.project.NovaMarket.requestModels.ReviewRequest;
 import com.pofolio.web.development.project.NovaMarket.service.ReviewService;
 import com.pofolio.web.development.project.NovaMarket.service.UserService;
 import com.pofolio.web.development.project.NovaMarket.utils.ExtractJWT;
-import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,12 +49,14 @@ public class ReviewController {
 //        return reviewService.saveReview(productId, review);
 //    }
 
-    @PostMapping("/product/{productId}/reviews")
-    public ResponseEntity<Review> saveMember(@PathVariable(value = "productId") Long productId,
-                                            @Valid @RequestBody Review review) {
-        logger.info("Creating new order");
+    @PostMapping("/product/secure/reviews")
+    public ResponseEntity<Review> leaveReview(@RequestHeader(value = "Authorization") String token,
+                                              @RequestBody ReviewRequest reviewRequest) {
         try {
-            Review savedReview = reviewService.saveReview(productId, review);
+            String userEmail = ExtractJWT.payloadJWTExtraction(token, "\"sub\"");
+            Long customerId = userService.findUserByEmail(userEmail).get().getId();
+
+            Review savedReview = reviewService.saveReview(customerId, reviewRequest);
             return new ResponseEntity<>(savedReview, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

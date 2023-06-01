@@ -190,6 +190,8 @@ public class NovaMarketApplication {
 //			List<Product> products = productRepository.findProductByName(page,"Al-Haitham").stream().toList();
 //			if(products.size()>0)
 //			products.forEach((n) -> System.out.println(n));
+
+//			System.out.println(productRepository.findProductByProductId(3L).get());
 		};
 	}
 
