@@ -43,6 +43,11 @@ public class Order {
     @JsonIgnore
     private List<OrderItem> orderItemList;
 
+    @OneToMany(targetEntity = Payment.class, mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @Fetch(FetchMode.SUBSELECT)
+    @JsonIgnore
+    private List<Payment> payments;
+
     @Override
     public String toString() {
         return "Order{" +
